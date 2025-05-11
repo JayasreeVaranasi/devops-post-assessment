@@ -28,6 +28,15 @@ jobs:
     - name: Log in to Docker Hub
       run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
 
+    - name: Check Docker builder info
+      run: docker buildx ls
+
+    - name: Reset Docker to classic builder (if needed)
+      run: |
+        docker buildx stop default || true
+        docker buildx rm default || true
+        echo "Reset Docker builder to classic"
+
     - name: Build Docker image
       run: |  
         docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/mlops-model1:latest .
