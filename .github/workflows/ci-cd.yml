@@ -10,10 +10,10 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v2
 
     - name: Set up Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v2
       with:
         python-version: '3.9'
 
@@ -28,20 +28,18 @@ jobs:
     - name: Log in to Docker Hub
       run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
 
-    - name: Check Docker builder info
-      run: docker buildx ls
-
-    - name: Reset Docker to classic builder (if needed)
+    - name: Build Docker image using buildx
       run: |
-        docker buildx stop default || true
-        docker buildx rm default || true
-        echo "Reset Docker builder to classic"
+        docker buildx create --use --name mybuilder || echo "Builder exists"
+        docker buildx build --platform linux/amd64 \
+          -t ${{ secrets.DOCKERHUB_USERNAME }}/post-assessment:latest \
+          --push .
 
-    - name: Build Docker image
-      run: |  
-        docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/mlops-model1:latest .
+    # - name: Build Docker image
+    #   run: |  
+    #     docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/mlops-model1:latest .
         
-    - name: Push Docker image
-      run: |
-        # docker tag post-assessment ${{ secrets.DOCKERHUB_USERNAME }}/post-assessment:latest
-        docker push ${{ secrets.DOCKERHUB_USERNAME }}/mlops-model1:latest
+    # - name: Push Docker image
+    #   run: |
+    #     # docker tag post-assessment ${{ secrets.DOCKERHUB_USERNAME }}/post-assessment:latest
+    #     docker push ${{ secrets.DOCKERHUB_USERNAME }}/mlops-model1:latest
