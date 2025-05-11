@@ -39,7 +39,7 @@ jobs:
     - name: Disable Buildx
       run: |
           export DOCKER_CLI_EXPERIMENTAL=disabled
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/post-assessment:latest .
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/post-assessment:latest .
 
     # - name: Build Docker image
     #   run: |  
