@@ -35,6 +35,7 @@ jobs:
           -t ${{ secrets.DOCKERHUB_USERNAME }}/post-assessment:latest \
           --push .
 
+
     # - name: Build Docker image
     #   run: |  
     #     docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/mlops-model1:latest .
