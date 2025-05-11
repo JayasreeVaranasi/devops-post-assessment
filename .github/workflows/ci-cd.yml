@@ -39,9 +39,9 @@ jobs:
 
     - name: Build Docker image
       run: |  
-        docker buildx build --platform linux/amd64,linux/arm64 -t ${{ secrets.DOCKERHUB_USERNAME }}/post-assessment:latest --push .
+        sudo docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/post-assessment:latest .
         
-    # - name: Push Docker image
-    #   run: |
-    #     # docker tag post-assessment ${{ secrets.DOCKERHUB_USERNAME }}/post-assessment:latest
-    #     docker push ${{ secrets.DOCKERHUB_USERNAME }}/post-assessment:latest
+    - name: Push Docker image
+      run: |
+        # docker tag post-assessment ${{ secrets.DOCKERHUB_USERNAME }}/post-assessment:latest
+        sudo docker push ${{ secrets.DOCKERHUB_USERNAME }}/post-assessment:latest
