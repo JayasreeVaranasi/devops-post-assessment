@@ -17,6 +17,10 @@ jobs:
       with:
         python-version: '3.9'
 
+    - name: Set up Docker CLI (disable buildx)
+      run: |
+        docker build --version
+
     - name: Install dependencies
       run: |
         pip install -r requirements.txt
