@@ -34,5 +34,5 @@ jobs:
 
     - name: Push Docker image
       run: |
-        docker tag ontime-delivery ${{ secrets.DOCKERHUB_USERNAME }}/post-assessment:latest
+        docker tag post-assessment ${{ secrets.DOCKERHUB_USERNAME }}/post-assessment:latest
         docker push ${{ secrets.DOCKERHUB_USERNAME }}/post-assessment:latest
