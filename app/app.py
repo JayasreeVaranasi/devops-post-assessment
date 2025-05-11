@@ -4,7 +4,7 @@ import pandas as pd
 from app.schemas import ShipmentData, Prediction
 
 app = FastAPI()
-model = joblib.load("app/model.pkl")
+model = joblib.load("model.pkl")
 
 @app.post("/predict", response_model=Prediction)
 def predict(data: ShipmentData):
